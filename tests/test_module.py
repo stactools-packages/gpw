@@ -1,8 +1,8 @@
 import unittest
 
-import stactools.package
+import stactools.gpw
 
 
 class TestModule(unittest.TestCase):
     def test_version(self):
-        self.assertIsNotNone(stactools.package.__version__)
+        self.assertIsNotNone(stactools.gpw.__version__)
