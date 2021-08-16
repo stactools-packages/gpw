@@ -1,8 +1,7 @@
 # flake8: noqa
 
 from pyproj import CRS
-from pystac import Provider
-from pystac import Link
+from pystac import Link, Provider, ProviderRole
 
 GPW_ID = "GPW"
 GPW_EPSG = 4326
@@ -20,7 +19,7 @@ DESCRIPTION = """The Gridded Population of the World, Version 4 (GPWv4): Populat
 GPW_PROVIDER = Provider(
     name=
     "Center for International Earth Science Information Network - CIESIN - Columbia University",
-    roles=["producer", "processor", "host"],
+    roles=[ProviderRole.PRODUCER, ProviderRole.PROCESSOR, ProviderRole.HOST],
     url=
     "https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11")
 

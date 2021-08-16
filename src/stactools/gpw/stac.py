@@ -38,7 +38,9 @@ def create_item(output_url: str, arc30s_href: str, arc2M30s_href: str,
 
     item_id = arc30s_href.split(".")[0].split("/")[-1]
 
-    year = re.search("\d{4}", item_id).group()  # noqa
+    match = re.search(r"\d{4}", item_id)
+    assert match
+    year = match.group()
 
     utc = pytz.utc
 
@@ -88,7 +90,7 @@ def create_item(output_url: str, arc30s_href: str, arc2M30s_href: str,
     return item
 
 
-def create_collection(output_url: str):
+def create_collection(output_url: str) -> pystac.Collection:
     """Create a STAC Collection for Gridded Population of
     #the World, Version 4 (GPWv4): Population Count dataset
 
@@ -100,9 +102,8 @@ def create_collection(output_url: str):
     """
     utc = pytz.utc
 
-    dataset_datetime = utc.localize(datetime.strptime(GPW_START_YEAR, "%Y"))
+    start_datetime = utc.localize(datetime.strptime(GPW_START_YEAR, "%Y"))
     end_datetime = utc.localize(datetime.strptime(GPW_END_YEAR, "%Y"))
-    start_datetime = dataset_datetime
 
     collection = pystac.Collection(
         id=GPW_ID,
@@ -112,7 +113,8 @@ def create_collection(output_url: str):
         license=LICENSE,
         extent=pystac.Extent(
             pystac.SpatialExtent(GPW_BOUNDING_BOX),
-            pystac.TemporalExtent([start_datetime, end_datetime]),
+            # `or None` fixes mypy issue with the DateTime being non-Optional
+            pystac.TemporalExtent([[start_datetime or None, end_datetime]]),
         ),
         catalog_type=pystac.CatalogType.RELATIVE_PUBLISHED,
     )

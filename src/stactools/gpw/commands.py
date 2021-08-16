@@ -8,13 +8,13 @@ from stactools.gpw import cog
 logger = logging.getLogger(__name__)
 
 
-def create_gpw_command(cli):
+def create_gpw_command(cli: click.Group) -> click.Command:
     """Creates the gpw command line utility."""
     @cli.group(
         "gpw",
         short_help="Commands for working with GPW data",
     )
-    def gpw():
+    def gpw() -> None:
         pass
 
     @gpw.command(
@@ -27,7 +27,7 @@ def create_gpw_command(cli):
         required=True,
         help="The output directory for the STAC Collection json",
     )
-    def create_collection_command(destination: str):
+    def create_collection_command(destination: str) -> None:
         """Creates a STAC Collection from gpw metadata
 
         Args:
@@ -49,7 +49,7 @@ def create_gpw_command(cli):
                   "--source",
                   required=True,
                   help="Path to an input GeoTiff")
-    def create_cog_command(destination: str, source: str):
+    def create_cog_command(destination: str, source: str) -> None:
         """Generate a COG from a GeoTiff. The COG will be saved in the destination
         with `_cog.tif` appended to the name.
 
@@ -81,7 +81,7 @@ def create_gpw_command(cli):
                   required=True,
                   help="COG hrefs for arc30s, arc2M30s, arc15m, arc30m, arc60m"
                   )
-    def create_item_command(destination: str, cog: str):
+    def create_item_command(destination: str, cog: str) -> None:
         """Generate a STAC item using the metadata, with an asset url as provided.
 
         Args:
