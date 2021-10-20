@@ -50,13 +50,21 @@ def create_gpw_command(cli: click.Group) -> click.Command:
                   "--source",
                   required=True,
                   help="Path to an input GeoTiff")
-    def create_cog_command(destination: str, source: str) -> None:
+    @click.option(
+        "-t",
+        "--tile",
+        help="Tile the tiff into many smaller files.",
+        is_flag=True,
+        default=False,
+    )
+    def create_cog_command(destination: str, source: str, tile: bool) -> None:
         """Generate a COG from a GeoTiff. The COG will be saved in the destination
         with `_cog.tif` appended to the name.
 
         Args:
             destination (str): Local directory to save output COGs
             source (str): An input GPW GeoTiff
+            tile (bool, optional): Tile the tiff into many smaller files
         """
         if not os.path.isdir(destination):
             raise IOError(f'Destination folder "{destination}" not found')
@@ -64,7 +72,7 @@ def create_gpw_command(cli: click.Group) -> click.Command:
         output_path = os.path.join(destination,
                                    os.path.basename(source)[:-4] + "_cog.tif")
 
-        cog.create_cog(source, output_path)
+        cog.create_cog(source, output_path, tile=tile)
 
     @gpw.command(
         "create-item",

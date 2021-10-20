@@ -27,6 +27,22 @@ class StacTest(unittest.TestCase):
 
             self.assertEqual(len(cogs), 5)
 
+    def test_create_tiled_cog(self):
+        with TemporaryDirectory() as tmp_dir:
+            test_path = test_data.get_path("data-files")
+            paths = [
+                os.path.join(test_path, d) for d in os.listdir(test_path)
+                if d.lower().endswith(".tif")
+            ]
+
+            for path in paths:
+                output_path = os.path.join(tmp_dir)
+                cog.create_cog(path, output_path, tile=True)
+
+            cogs = [p for p in os.listdir(tmp_dir) if p.endswith("_cog.tif")]
+
+            self.assertEqual(len(cogs), 5)
+
     def test_create_item(self):
         with TemporaryDirectory() as tmp_dir:
 
