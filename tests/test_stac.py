@@ -23,10 +23,9 @@ class StacTest(unittest.TestCase):
                     os.path.basename(path)[:-4] + "_cog.tif")
                 cog.create_cog(path, output_path)
 
-                # cogs = [
-                #     p for p in os.listdir(tmp_dir) if p.endswith("_cog.tif")
-                # ]
-                # self.assertEqual(len(cogs), 1)
+            cogs = [p for p in os.listdir(tmp_dir) if p.endswith("_cog.tif")]
+
+            self.assertEqual(len(cogs), 5)
 
     def test_create_item(self):
         with TemporaryDirectory() as tmp_dir:
@@ -41,7 +40,8 @@ class StacTest(unittest.TestCase):
             stac.create_item(json_path, *paths)
 
             jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
-            # self.assertEqual(len(jsons), 1)
+
+            self.assertEqual(len(jsons), 1)
 
             item_path = os.path.join(tmp_dir, jsons[0])
 
@@ -58,7 +58,7 @@ class StacTest(unittest.TestCase):
             stac.create_collection(json_path)
 
             jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
-            # self.assertEqual(len(jsons), 1)
+            self.assertEqual(len(jsons), 1)
 
             collection_path = os.path.join(tmp_dir, jsons[0])
 
