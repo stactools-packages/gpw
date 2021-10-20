@@ -1,5 +1,4 @@
 import logging
-
 from subprocess import CalledProcessError, check_output
 
 logger = logging.getLogger(__name__)
@@ -28,7 +27,8 @@ def create_cog(
     output = None
     try:
         if dry_run:
-            logger.info("Would have downloaded TIF, created COG, and written COG")
+            logger.info(
+                "Would have downloaded TIF, created COG, and written COG")
         else:
             cmd = [
                 "gdal_translate",

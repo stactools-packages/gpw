@@ -17,9 +17,11 @@ LICENSE_LINK = Link(
 DESCRIPTION = """The Gridded Population of the World, Version 4 (GPWv4): Population Count, Revision 11 consists of estimates of human population (number of persons per pixel), consistent with national censuses and population registers, for the years 2000, 2005, 2010, 2015, and 2020."""
 
 GPW_PROVIDER = Provider(
-    name="Center for International Earth Science Information Network - CIESIN - Columbia University",
+    name=
+    "Center for International Earth Science Information Network - CIESIN - Columbia University",
     roles=[ProviderRole.PRODUCER, ProviderRole.PROCESSOR, ProviderRole.HOST],
-    url="https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11",
+    url=
+    "https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11",
 )
 
 GPW_BOUNDING_BOX = [-180.000000, 90.000000, 180.000000, -90.000000]

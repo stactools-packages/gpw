@@ -1,11 +1,11 @@
+import logging
 import os.path
 from tempfile import TemporaryDirectory
-import logging
-import pystac
 
-from stactools.gpw.commands import create_gpw_command
+import pystac
 from stactools.testing import CliTestCase
 
+from stactools.gpw.commands import create_gpw_command
 from tests import test_data
 
 logger = logging.getLogger(__name__)
@@ -18,8 +18,11 @@ class CreateCollectionTest(CliTestCase):
     def test_create_collection(self):
         with TemporaryDirectory() as tmp_dir:
             json_path = os.path.join(tmp_dir, "test.json")
-            result = self.run_command(["gpw", "create-collection", "-d", json_path])
-            self.assertEqual(result.exit_code, 0, msg="\n{}".format(result.output))
+            result = self.run_command(
+                ["gpw", "create-collection", "-d", json_path])
+            self.assertEqual(result.exit_code,
+                             0,
+                             msg="\n{}".format(result.output))
 
             jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
             # self.assertEqual(len(jsons), 1)
@@ -32,16 +35,16 @@ class CreateCollectionTest(CliTestCase):
         with TemporaryDirectory() as tmp_dir:
             test_path = test_data.get_path("data-files")
             paths = [
-                os.path.join(test_path, d)
-                for d in os.listdir(test_path)
+                os.path.join(test_path, d) for d in os.listdir(test_path)
                 if d.lower().endswith(".tif")
             ]
 
             for path in paths:
                 result = self.run_command(
-                    ["gpw", "create-cog", "-d", tmp_dir, "-s", path]
-                )
-                self.assertEqual(result.exit_code, 0, msg="\n{}".format(result.output))
+                    ["gpw", "create-cog", "-d", tmp_dir, "-s", path])
+                self.assertEqual(result.exit_code,
+                                 0,
+                                 msg="\n{}".format(result.output))
 
                 # cogs = [
                 #     p for p in os.listdir(tmp_dir) if p.endswith("_cog.tif")
@@ -54,15 +57,15 @@ class CreateCollectionTest(CliTestCase):
 
             test_path = test_data.get_path("data-files")
             paths = [
-                os.path.join(test_path, d)
-                for d in os.listdir(test_path)
+                os.path.join(test_path, d) for d in os.listdir(test_path)
                 if d.lower().endswith(".tif")
             ]
 
             result = self.run_command(
-                ["gpw", "create-item", "-d", tmp_dir, "-c"] + paths
-            )
-            self.assertEqual(result.exit_code, 0, msg="\n{}".format(result.output))
+                ["gpw", "create-item", "-d", tmp_dir, "-c"] + paths)
+            self.assertEqual(result.exit_code,
+                             0,
+                             msg="\n{}".format(result.output))
 
             jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
             # self.assertEqual(len(jsons), 1)

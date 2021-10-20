@@ -1,37 +1,21 @@
 import logging
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
 import re
-import shapely
-import rasterio
-import pytz
+from datetime import datetime
 
 import pystac
+import pytz
+import rasterio
+import shapely
+from dateutil.relativedelta import relativedelta
 from pystac.extensions.item_assets import ItemAssetsExtension
-
 from pystac.extensions.projection import ProjectionExtension
 
-from stactools.gpw.constants import (
-    GPW_ID,
-    GPW_EPSG,
-    GPW_TITLE,
-    DESCRIPTION,
-    GPW_PROVIDER,
-    LICENSE,
-    LICENSE_LINK,
-    GPW_BOUNDING_BOX,
-    GPW_START_YEAR,
-    GPW_END_YEAR,
-)
-
-from stactools.gpw.assets import (
-    ITEM_ASSETS,
-    ARC30S_KEY,
-    ARC2M30S_KEY,
-    ARC15M_KEY,
-    ARC30M_KEY,
-    ARC60M_KEY,
-)
+from stactools.gpw.assets import (ARC2M30S_KEY, ARC15M_KEY, ARC30M_KEY,
+                                  ARC30S_KEY, ARC60M_KEY, ITEM_ASSETS)
+from stactools.gpw.constants import (DESCRIPTION, GPW_BOUNDING_BOX,
+                                     GPW_END_YEAR, GPW_EPSG, GPW_ID,
+                                     GPW_PROVIDER, GPW_START_YEAR, GPW_TITLE,
+                                     LICENSE, LICENSE_LINK)
 
 logger = logging.getLogger(__name__)
 
