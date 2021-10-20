@@ -11,20 +11,39 @@ from pystac.extensions.item_assets import ItemAssetsExtension
 
 from pystac.extensions.projection import ProjectionExtension
 
-from stactools.gpw.constants import (GPW_ID, GPW_EPSG, GPW_TITLE, DESCRIPTION,
-                                     GPW_PROVIDER, LICENSE, LICENSE_LINK,
-                                     GPW_BOUNDING_BOX, GPW_START_YEAR,
-                                     GPW_END_YEAR)
+from stactools.gpw.constants import (
+    GPW_ID,
+    GPW_EPSG,
+    GPW_TITLE,
+    DESCRIPTION,
+    GPW_PROVIDER,
+    LICENSE,
+    LICENSE_LINK,
+    GPW_BOUNDING_BOX,
+    GPW_START_YEAR,
+    GPW_END_YEAR,
+)
 
-from stactools.gpw.assets import (ITEM_ASSETS, ARC30S_KEY, ARC2M30S_KEY,
-                                  ARC15M_KEY, ARC30M_KEY, ARC60M_KEY)
+from stactools.gpw.assets import (
+    ITEM_ASSETS,
+    ARC30S_KEY,
+    ARC2M30S_KEY,
+    ARC15M_KEY,
+    ARC30M_KEY,
+    ARC60M_KEY,
+)
 
 logger = logging.getLogger(__name__)
 
 
-def create_item(output_url: str, arc30s_href: str, arc2M30s_href: str,
-                arc15m_href: str, arc30m_href: str,
-                arc60m_href: str) -> pystac.Item:
+def create_item(
+    output_url: str,
+    arc30s_href: str,
+    arc2M30s_href: str,
+    arc15m_href: str,
+    arc30m_href: str,
+    arc60m_href: str,
+) -> pystac.Item:
     """Creates a STAC item for Gridded Population of the World,
     Version 4 (GPWv4): Population Count dataset.
 
@@ -61,11 +80,13 @@ def create_item(output_url: str, arc30s_href: str, arc2M30s_href: str,
     }
 
     # Create item
-    item = pystac.Item(id=item_id,
-                       geometry=geometry,
-                       bbox=GPW_BOUNDING_BOX,
-                       datetime=dataset_datetime,
-                       properties=properties)
+    item = pystac.Item(
+        id=item_id,
+        geometry=geometry,
+        bbox=GPW_BOUNDING_BOX,
+        datetime=dataset_datetime,
+        properties=properties,
+    )
 
     item.common_metadata.start_datetime = start_datetime
     item.common_metadata.end_datetime = end_datetime
@@ -79,9 +100,13 @@ def create_item(output_url: str, arc30s_href: str, arc2M30s_href: str,
     item_projection.transform = list(src.transform)
     item_projection.shape = [src.height, src.width]
 
-    for key, href in [(ARC30S_KEY, arc30s_href), (ARC2M30S_KEY, arc2M30s_href),
-                      (ARC15M_KEY, arc15m_href), (ARC30M_KEY, arc30m_href),
-                      (ARC60M_KEY, arc60m_href)]:
+    for key, href in [
+        (ARC30S_KEY, arc30s_href),
+        (ARC2M30S_KEY, arc2M30s_href),
+        (ARC15M_KEY, arc15m_href),
+        (ARC30M_KEY, arc30m_href),
+        (ARC60M_KEY, arc60m_href),
+    ]:
         item.add_asset(key, ITEM_ASSETS[key].create_asset(href))
 
     item.set_self_href(output_url)

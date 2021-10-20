@@ -14,14 +14,15 @@ class StacTest(unittest.TestCase):
         with TemporaryDirectory() as tmp_dir:
             test_path = test_data.get_path("data-files")
             paths = [
-                os.path.join(test_path, d) for d in os.listdir(test_path)
+                os.path.join(test_path, d)
+                for d in os.listdir(test_path)
                 if d.lower().endswith(".tif")
             ]
 
             for path in paths:
                 output_path = os.path.join(
-                    tmp_dir,
-                    os.path.basename(path)[:-4] + "_cog.tif")
+                    tmp_dir, os.path.basename(path)[:-4] + "_cog.tif"
+                )
                 cog.create_cog(path, output_path)
 
                 # cogs = [
@@ -34,7 +35,8 @@ class StacTest(unittest.TestCase):
 
             test_path = test_data.get_path("data-files")
             paths = [
-                os.path.join(test_path, d) for d in os.listdir(test_path)
+                os.path.join(test_path, d)
+                for d in os.listdir(test_path)
                 if d.lower().endswith(".tif")
             ]
 

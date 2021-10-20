@@ -28,8 +28,7 @@ def create_cog(
     output = None
     try:
         if dry_run:
-            logger.info(
-                "Would have downloaded TIF, created COG, and written COG")
+            logger.info("Would have downloaded TIF, created COG, and written COG")
         else:
             cmd = [
                 "gdal_translate",

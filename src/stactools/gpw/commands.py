@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 def create_gpw_command(cli: click.Group) -> click.Command:
     """Creates the gpw command line utility."""
+
     @cli.group(
         "gpw",
         short_help="Commands for working with GPW data",
@@ -41,14 +42,10 @@ def create_gpw_command(cli: click.Group) -> click.Command:
         "create-cog",
         short_help="Transform Geotiff to Cloud-Optimized Geotiff.",
     )
-    @click.option("-d",
-                  "--destination",
-                  required=True,
-                  help="The output directory for the COG")
-    @click.option("-s",
-                  "--source",
-                  required=True,
-                  help="Path to an input GeoTiff")
+    @click.option(
+        "-d", "--destination", required=True, help="The output directory for the COG"
+    )
+    @click.option("-s", "--source", required=True, help="Path to an input GeoTiff")
     def create_cog_command(destination: str, source: str) -> None:
         """Generate a COG from a GeoTiff. The COG will be saved in the destination
         with `_cog.tif` appended to the name.
@@ -60,8 +57,9 @@ def create_gpw_command(cli: click.Group) -> click.Command:
         if not os.path.isdir(destination):
             raise IOError(f'Destination folder "{destination}" not found')
 
-        output_path = os.path.join(destination,
-                                   os.path.basename(source)[:-4] + "_cog.tif")
+        output_path = os.path.join(
+            destination, os.path.basename(source)[:-4] + "_cog.tif"
+        )
 
         cog.create_cog(source, output_path)
 
@@ -75,12 +73,13 @@ def create_gpw_command(cli: click.Group) -> click.Command:
         required=True,
         help="The output directory for the STAC json",
     )
-    @click.option("-c",
-                  "--cog",
-                  nargs=5,
-                  required=True,
-                  help="COG hrefs for arc30s, arc2M30s, arc15m, arc30m, arc60m"
-                  )
+    @click.option(
+        "-c",
+        "--cog",
+        nargs=5,
+        required=True,
+        help="COG hrefs for arc30s, arc2M30s, arc15m, arc30m, arc60m",
+    )
     def create_item_command(destination: str, cog: str) -> None:
         """Generate a STAC item using the metadata, with an asset url as provided.
 
@@ -91,8 +90,7 @@ def create_gpw_command(cli: click.Group) -> click.Command:
 
         arc30s, arc2M30s, arc15m, arc30m, arc60m = cog
 
-        output_path = os.path.join(destination,
-                                   os.path.basename(arc30s)[:-4] + ".json")
+        output_path = os.path.join(destination, os.path.basename(arc30s)[:-4] + ".json")
 
         stac.create_item(output_path, arc30s, arc2M30s, arc15m, arc30m, arc60m)
 

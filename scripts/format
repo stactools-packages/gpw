@@ -13,13 +13,13 @@ Format code with yapf
 "
 }
 
-DIRS_TO_CHECK=("src" "tests" "scripts")
+DIRS_TO_CHECK=("src" "tests")
 
 if [ "${BASH_SOURCE[0]}" = "${0}" ]; then
     if [ "${1:-}" = "--help" ]; then
         usage
     else
         # Code formatting
-        yapf -ipr ${DIRS_TO_CHECK[@]}
+        black ${DIRS_TO_CHECK[@]}
     fi
 fi
