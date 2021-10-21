@@ -69,10 +69,7 @@ def create_gpw_command(cli: click.Group) -> click.Command:
         if not os.path.isdir(destination):
             raise IOError(f'Destination folder "{destination}" not found')
 
-        output_path = os.path.join(destination,
-                                   os.path.basename(source)[:-4] + "_cog.tif")
-
-        cog.create_cog(source, output_path, tile=tile)
+        cog.create_cog(source, destination, tile=tile)
 
     @gpw.command(
         "create-item",

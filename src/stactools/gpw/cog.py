@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 def create_cog(
     input_path: str,
-    output_path: str,
+    output_dir: str,
     raise_on_fail: bool = True,
     dry_run: bool = False,
     tile: bool = False,
@@ -39,11 +39,14 @@ def create_cog(
                 "Would have downloaded TIF, created COG, and written COG")
         else:
             if tile:
-                return create_retiled_cogs(input_path, output_path,
+                return create_retiled_cogs(input_path, output_dir,
                                            raise_on_fail, dry_run)
             else:
-                output_path = create_single_cog(input_path, output_path,
-                                                raise_on_fail, dry_run)
+                output_path = os.path.join(
+                    output_dir,
+                    os.path.basename(input_path)[:-4] + "_cog.tif")
+                create_single_cog(input_path, output_path, raise_on_fail,
+                                  dry_run)
 
     except Exception:
         logger.error("Failed to process {}".format(output_path))

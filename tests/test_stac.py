@@ -18,10 +18,7 @@ class StacTest(unittest.TestCase):
             ]
 
             for path in paths:
-                output_path = os.path.join(
-                    tmp_dir,
-                    os.path.basename(path)[:-4] + "_cog.tif")
-                cog.create_cog(path, output_path)
+                cog.create_cog(path, tmp_dir)
 
             cogs = [p for p in os.listdir(tmp_dir) if p.endswith("_cog.tif")]
 

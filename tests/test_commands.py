@@ -25,7 +25,7 @@ class CreateCollectionTest(CliTestCase):
                              msg="\n{}".format(result.output))
 
             jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
-            # self.assertEqual(len(jsons), 1)
+            self.assertEqual(len(jsons), 1)
 
             collection = pystac.read_file(os.path.join(tmp_dir, jsons[0]))
 
@@ -46,11 +46,9 @@ class CreateCollectionTest(CliTestCase):
                                  0,
                                  msg="\n{}".format(result.output))
 
-                # cogs = [
-                #     p for p in os.listdir(tmp_dir) if p.endswith("_cog.tif")
-                # ]
+            cogs = [p for p in os.listdir(tmp_dir) if p.endswith("_cog.tif")]
 
-                # self.assertEqual(len(cogs), 1)
+            self.assertEqual(len(cogs), 5)
 
     def test_create_item(self):
         with TemporaryDirectory() as tmp_dir:
@@ -68,7 +66,7 @@ class CreateCollectionTest(CliTestCase):
                              msg="\n{}".format(result.output))
 
             jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
-            # self.assertEqual(len(jsons), 1)
+            self.assertEqual(len(jsons), 1)
 
             item_path = os.path.join(tmp_dir, jsons[0])
 
