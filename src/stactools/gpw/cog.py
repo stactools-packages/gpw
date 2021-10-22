@@ -65,7 +65,7 @@ def create_single_cog(
 ) -> str:
     """Create COG from a TIFF
     Args:
-        input_path (str): Path to the Natural Resources Canada Land Cover data.
+        input_path (str): Path to the GeoTiff data.
         output_path (str): The path to which the COG will be written.
         raise_on_fail (bool, optional): Whether to raise error on failure.
             Defaults to True.
@@ -130,7 +130,7 @@ def create_retiled_cogs(
 ) -> str:
     """Split tiff into tiles and create COGs
     Args:
-        input_path (str): Path to the Natural Resources Canada Land Cover data.
+        input_path (str): Path to the GeoTiff data.
         output_directory (str): The directory to which the COG will be written.
         raise_on_fail (bool, optional): Whether to raise error on failure.
             Defaults to True.
