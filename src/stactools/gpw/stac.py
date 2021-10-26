@@ -1,6 +1,8 @@
 import logging
+import os
 import re
 from datetime import datetime
+from typing import Optional
 
 import pystac
 import pytz
@@ -9,37 +11,54 @@ import shapely
 from dateutil.relativedelta import relativedelta
 from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import ProjectionExtension
+from stactools.core.io import ReadHrefModifier
 
-from stactools.gpw.assets import (ARC2M30S_KEY, ARC15M_KEY, ARC30M_KEY,
-                                  ARC30S_KEY, ARC60M_KEY, ITEM_ASSETS)
-from stactools.gpw.constants import (DESCRIPTION, GPW_BOUNDING_BOX,
-                                     GPW_END_YEAR, GPW_EPSG, GPW_ID,
-                                     GPW_PROVIDER, GPW_START_YEAR, GPW_TITLE,
-                                     LICENSE, LICENSE_LINK)
+from stactools.gpw.assets import (
+    ITEM_ASSETS,
+    POP_COUNT_ADJ_KEY,
+    POP_COUNT_KEY,
+    POP_DENSITY_ADJ_KEY,
+    POP_DENSITY_KEY,
+)
+from stactools.gpw.constants import (
+    DESCRIPTION,
+    GPW_BOUNDING_BOX,
+    GPW_END_YEAR,
+    GPW_EPSG,
+    GPW_ID,
+    GPW_PROVIDER,
+    GPW_START_YEAR,
+    GPW_TITLE,
+    LICENSE,
+    LICENSE_LINK,
+)
 
 logger = logging.getLogger(__name__)
 
 
 def create_item(
-    output_url: str,
-    arc30s_href: str,
-    arc2M30s_href: str,
-    arc15m_href: str,
-    arc30m_href: str,
-    arc60m_href: str,
+    pop_count: str,
+    pop_count_adj: str,
+    pop_density: str,
+    pop_density_adj: str,
+    cog_href_modifier: Optional[ReadHrefModifier] = None,
 ) -> pystac.Item:
     """Creates a STAC item for Gridded Population of the World,
     Version 4 (GPWv4): Population Count dataset.
 
     Args:
-        output_url (str): Path to output STAC item.
-        cog_href (str): Path to COG asset.
+        pop_count (str): Path to tiled population count COG
+        pop_count_adj (str): Path to tiled adjusted population count COG
+        pop_density (str): Path to tiled population density COG
+        pop_density_adj (str): Path to adjusted tiled population density COG
 
     Returns:
         pystac.Item: STAC Item object.
     """
 
-    item_id = arc30s_href.split(".")[0].split("/")[-1]
+    # construct an item id like: gpw_v4_rev11_2005_30_sec_1_1
+    split_basename = os.path.basename(pop_count).split("_")
+    item_id = "_".join([*split_basename[0:2], *split_basename[4:10]])
 
     match = re.search(r"\d{4}", item_id)
     assert match
@@ -79,22 +98,18 @@ def create_item(
     item_projection.epsg = GPW_EPSG
     item_projection.bbox = GPW_BOUNDING_BOX
 
-    src = rasterio.open(arc30s_href)
+    src = rasterio.open(pop_count)
 
     item_projection.transform = list(src.transform)
     item_projection.shape = [src.height, src.width]
 
     for key, href in [
-        (ARC30S_KEY, arc30s_href),
-        (ARC2M30S_KEY, arc2M30s_href),
-        (ARC15M_KEY, arc15m_href),
-        (ARC30M_KEY, arc30m_href),
-        (ARC60M_KEY, arc60m_href),
+        (POP_COUNT_KEY, pop_count),
+        (POP_COUNT_ADJ_KEY, pop_count_adj),
+        (POP_DENSITY_KEY, pop_density),
+        (POP_DENSITY_ADJ_KEY, pop_density_adj),
     ]:
         item.add_asset(key, ITEM_ASSETS[key].create_asset(href))
-
-    item.set_self_href(output_url)
-    item.save_object()
 
     return item
 

@@ -3,63 +3,51 @@ from typing import Dict
 import pystac
 from pystac.extensions.item_assets import AssetDefinition
 
-ARC30S_KEY = "30s1km"
-ARC2M30S_KEY = "2min30s5km"
-ARC15M_KEY = "15min30km"
-ARC30M_KEY = "30min55km"
-ARC60M_KEY = "60min110km"
+POP_COUNT_KEY = "pop_count"
+POP_COUNT_ADJ_KEY = "pop_count_adj"
+POP_DENSITY_KEY = "pop_density"
+POP_DENSITY_ADJ_KEY = "pop_density_adj"
 
 ITEM_ASSETS: Dict[str, AssetDefinition] = {
-    ARC30S_KEY:
+    POP_COUNT_KEY:
     AssetDefinition({
         "title":
-        "30 arc-seconds, 1km",
+        "Population Count, 1km",
         "description": (
-            "Gridded Population of the World, Version 4 (GPWv4): Population Count, 1km resolution"  # noqa: E501
+            "Gridded Population of the World, Version 4 (GPWv4): Population Count, 30 arc-seconds, 1km resolution"  # noqa: E501
         ),
         "type":
         pystac.MediaType.COG,
         "roles": ["data"],
     }),
-    ARC2M30S_KEY:
+    POP_COUNT_ADJ_KEY:
     AssetDefinition({
         "title":
-        "2.5 arc-minutes, 5km",
+        "UN WPP-Adjusted Population Count, 1km",
         "description": (
-            "Gridded Population of the World, Version 4 (GPWv4): Population Count, 5km resolution"  # noqa: E501
+            "Gridded Population of the World, Version 4 (GPWv4): UN WPP-Adjusted Population Count, 30 arc-seconds, 1km resolution"  # noqa: E501
         ),
         "type":
         pystac.MediaType.COG,
         "roles": ["data"],
     }),
-    ARC15M_KEY:
+    POP_DENSITY_KEY:
     AssetDefinition({
         "title":
-        "15 arc-minutes, 30km",
+        "Population Density, 1km",
         "description": (
-            "Gridded Population of the World, Version 4 (GPWv4): Population Count, 30km resolution"  # noqa: E501
+            "Gridded Population of the World, Version 4 (GPWv4): Population Density, 30 arc-seconds, 1km resolution"  # noqa: E501
         ),
         "type":
         pystac.MediaType.COG,
         "roles": ["data"],
     }),
-    ARC30M_KEY:
+    POP_DENSITY_ADJ_KEY:
     AssetDefinition({
         "title":
-        "30 arc-minutes, 55km",
+        "UN WPP-Adjusted Population Density, 1km",
         "description": (
-            "Gridded Population of the World, Version 4 (GPWv4): Population Count, 55km resolution"  # noqa: E501
-        ),
-        "type":
-        pystac.MediaType.COG,
-        "roles": ["data"],
-    }),
-    ARC60M_KEY:
-    AssetDefinition({
-        "title":
-        "60 arc-minutes, 110km",
-        "description": (
-            "Gridded Population of the World, Version 4 (GPWv4): Population Count, 110km resolution"  # noqa: E501
+            "Gridded Population of the World, Version 4 (GPWv4): UN WPP-Adjusted Population Density, 30 arc-seconds, 1km resolution"  # noqa: E501
         ),
         "type":
         pystac.MediaType.COG,

@@ -83,12 +83,19 @@ def create_gpw_command(cli: click.Group) -> click.Command:
     )
     @click.option(
         "-c",
-        "--cog",
-        nargs=5,
+        "--cogs",
+        nargs=4,
         required=True,
-        help="COG hrefs for arc30s, arc2M30s, arc15m, arc30m, arc60m",
+        help="""
+        \b
+        COG hrefs for:
+            Population Count,
+            UN WPP-Adjusted Population Count,
+            Population Density,
+            UN WPP-Adjusted Population Density
+        """,
     )
-    def create_item_command(destination: str, cog: Tuple[str]) -> None:
+    def create_item_command(destination: str, cogs: Tuple[str]) -> None:
         """Generate a STAC item using the metadata, with an asset url as provided.
 
         Args:
@@ -96,11 +103,17 @@ def create_gpw_command(cli: click.Group) -> click.Command:
             cog (str): location of a COG asset for the item
         """
 
-        (arc30s, arc2M30s, arc15m, arc30m, arc60m) = (i for i in cog)
+        (pop_count, pop_count_adj, pop_density,
+         pop_density_adj) = (i for i in cogs)
 
-        output_path = os.path.join(destination,
-                                   os.path.basename(arc30s)[:-4] + ".json")
+        item = stac.create_item(pop_count, pop_count_adj, pop_density,
+                                pop_density_adj)
 
-        stac.create_item(output_path, arc30s, arc2M30s, arc15m, arc30m, arc60m)
+        output_path = os.path.join(destination, item.id + ".json")
+
+        item.set_self_href(output_path)
+        item.make_asset_hrefs_relative()
+        item.save_object()
+        item.validate()
 
     return gpw

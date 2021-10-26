@@ -33,7 +33,7 @@ class CreateCollectionTest(CliTestCase):
 
     def test_create_cog(self):
         with TemporaryDirectory() as tmp_dir:
-            test_path = test_data.get_path("data-files")
+            test_path = test_data.get_path("data-files/raw")
             paths = [
                 os.path.join(test_path, d) for d in os.listdir(test_path)
                 if d.lower().endswith(".tif")
@@ -48,12 +48,12 @@ class CreateCollectionTest(CliTestCase):
 
             cogs = [p for p in os.listdir(tmp_dir) if p.endswith("_cog.tif")]
 
-            self.assertEqual(len(cogs), 5)
+            self.assertEqual(len(cogs), 1)
 
     def test_create_item(self):
         with TemporaryDirectory() as tmp_dir:
 
-            test_path = test_data.get_path("data-files")
+            test_path = test_data.get_path("data-files/tiles")
             paths = [
                 os.path.join(test_path, d) for d in os.listdir(test_path)
                 if d.lower().endswith(".tif")

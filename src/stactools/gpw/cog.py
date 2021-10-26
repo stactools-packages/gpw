@@ -49,7 +49,7 @@ def create_cog(
                                   dry_run)
 
     except Exception:
-        logger.error("Failed to process {}".format(output_path))
+        logger.error("Failed to process {}".format(output_dir))
 
         if raise_on_fail:
             raise
@@ -171,7 +171,8 @@ def create_retiled_cogs(
                     input_file = os.path.join(tmp_dir, f)
                     output_file = os.path.join(
                         output_directory,
-                        os.path.basename(f).replace(".tif", "") + "_cog.tif")
+                        os.path.basename(f).replace(".tif", "") + "_cog.tif",
+                    )
                     with rasterio.open(input_file, "r") as dataset:
                         contains_data = dataset.read().any()
                     # Exclude empty files
