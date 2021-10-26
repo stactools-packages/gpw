@@ -51,8 +51,9 @@ class StacTest(unittest.TestCase):
 
             item = stac.create_item(*paths)
 
-            json_path = os.path.join(tmp_dir, "test.json")
+            json_path = os.path.join(tmp_dir, f"{item.id}.json")
             item.set_self_href(json_path)
+            item.make_asset_hrefs_relative()
             item.save_object()
 
             jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
@@ -69,7 +70,7 @@ class StacTest(unittest.TestCase):
         with TemporaryDirectory() as tmp_dir:
 
             # Create stac collection
-            json_path = os.path.join(tmp_dir, "test.json")
+            json_path = os.path.join(tmp_dir, "collection.json")
 
             stac.create_collection(json_path)
 
