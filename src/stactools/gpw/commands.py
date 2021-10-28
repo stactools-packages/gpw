@@ -19,26 +19,6 @@ def create_gpw_command(cli: click.Group) -> click.Command:
         pass
 
     @gpw.command(
-        "create-pop-collection",
-        short_help="Creates a STAC collection from GPW population metadata",
-    )
-    @click.option(
-        "-d",
-        "--destination",
-        required=True,
-        help="The output directory for the STAC Collection json",
-    )
-    def create_pop_collection_command(destination: str) -> None:
-        """Creates a STAC Collection from gpw metadata
-
-        Args:
-            destination (str): Directory used to store the collection json
-        Returns:
-            Callable
-        """
-        stac.create_pop_collection(destination)
-
-    @gpw.command(
         "create-cog",
         short_help="Transform Geotiff to Cloud-Optimized Geotiff.",
     )
@@ -70,6 +50,26 @@ def create_gpw_command(cli: click.Group) -> click.Command:
             raise IOError(f'Destination folder "{destination}" not found')
 
         cog.create_cog(source, destination, tile=tile)
+
+    @gpw.command(
+        "create-pop-collection",
+        short_help="Creates a STAC collection from GPW population metadata",
+    )
+    @click.option(
+        "-d",
+        "--destination",
+        required=True,
+        help="The output directory for the STAC Collection json",
+    )
+    def create_pop_collection_command(destination: str) -> None:
+        """Creates a STAC Collection from gpw metadata
+
+        Args:
+            destination (str): Directory used to store the collection json
+        Returns:
+            Callable
+        """
+        stac.create_pop_collection(destination)
 
     @gpw.command(
         "create-pop-item",
