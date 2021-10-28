@@ -33,3 +33,14 @@ GPW_POP_DESCRIPTION = (
 
 GPW_POP_START_YEAR = "2000"
 GPW_POP_END_YEAR = "2020"
+
+GPW_ANC_ID = "GPW-ancillary"
+GPW_ANC_TITLE = "Gridded Population of the World (GPW) v4.11, Ancillary Datasets"
+GPW_ANC_DESCRIPTION = (
+    f"The Gridded Population of the World, Version 4 (GPWv4) Revision 11 Ancillary Datasets (data quality indicators, "
+    f"basic demographic characteristics, land and water area, and national identifier grid) provide context for the "
+    f"population count and density rasters found within the Gridded Population of the World Population Collection."
+)
+
+GPW_ANC_START_YEAR = "2010"
+GPW_ANC_END_YEAR = "2010"

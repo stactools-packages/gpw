@@ -31,6 +31,22 @@ class CreateCollectionTest(CliTestCase):
 
             collection.validate()
 
+    def test_create_anc_collection(self):
+        with TemporaryDirectory() as tmp_dir:
+            json_path = os.path.join(tmp_dir, "test.json")
+            result = self.run_command(
+                ["gpw", "create-anc-collection", "-d", json_path])
+            self.assertEqual(result.exit_code,
+                             0,
+                             msg="\n{}".format(result.output))
+
+            jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
+            self.assertEqual(len(jsons), 1)
+
+            collection = pystac.read_file(os.path.join(tmp_dir, jsons[0]))
+
+            collection.validate()
+
     def test_create_cog(self):
         with TemporaryDirectory() as tmp_dir:
             test_path = test_data.get_path("data-files/raw")

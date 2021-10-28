@@ -81,3 +81,20 @@ class StacTest(unittest.TestCase):
             collection = pystac.read_file(collection_path)
 
             collection.validate()
+
+    def test_create_anc_collection(self):
+        with TemporaryDirectory() as tmp_dir:
+
+            # Create stac collection
+            json_path = os.path.join(tmp_dir, "collection.json")
+
+            stac.create_anc_collection(json_path)
+
+            jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
+            self.assertEqual(len(jsons), 1)
+
+            collection_path = os.path.join(tmp_dir, jsons[0])
+
+            collection = pystac.read_file(collection_path)
+
+            collection.validate()

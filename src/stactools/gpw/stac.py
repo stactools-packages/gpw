@@ -18,13 +18,19 @@ from pystac.extensions.scientific import ScientificExtension
 from stactools.core.io import ReadHrefModifier
 
 from stactools.gpw.assets import (
-    ITEM_ASSETS,
+    ANC_ITEM_ASSETS,
     POP_COUNT_ADJ_KEY,
     POP_COUNT_KEY,
     POP_DENSITY_ADJ_KEY,
     POP_DENSITY_KEY,
+    POP_ITEM_ASSETS,
 )
 from stactools.gpw.constants import (
+    GPW_ANC_DESCRIPTION,
+    GPW_ANC_END_YEAR,
+    GPW_ANC_ID,
+    GPW_ANC_START_YEAR,
+    GPW_ANC_TITLE,
     GPW_BOUNDING_BOX,
     GPW_EPSG,
     GPW_LICENSE,
@@ -116,7 +122,7 @@ def create_pop_item(
         (POP_DENSITY_KEY, pop_density),
         (POP_DENSITY_ADJ_KEY, pop_density_adj),
     ]:
-        cog_asset = ITEM_ASSETS[key].create_asset(href)
+        cog_asset = POP_ITEM_ASSETS[key].create_asset(href)
         item.add_asset(key, cog_asset)
 
         asset_file = FileExtension.ext(cog_asset, add_if_missing=True)
@@ -138,7 +144,7 @@ def create_pop_item(
 
 def create_pop_collection(output_url: str) -> pystac.Collection:
     """Create a STAC Collection for Gridded Population of
-    #the World, Version 4 (GPWv4): Population Count dataset
+    the World, Version 4 (GPWv4): Population datasets
 
     Args:
         output (str): Location to save the output STAC Collection json
@@ -166,7 +172,47 @@ def create_pop_collection(output_url: str) -> pystac.Collection:
     )
     collection.add_link(GPW_LICENSE_LINK)
     item_assets = ItemAssetsExtension.ext(collection, add_if_missing=True)
-    item_assets.item_assets = ITEM_ASSETS
+    item_assets.item_assets = POP_ITEM_ASSETS
+
+    ScientificExtension.ext(collection, add_if_missing=True)
+
+    collection.set_self_href(output_url)
+    collection.save_object()
+
+    return collection
+
+
+def create_anc_collection(output_url: str) -> pystac.Collection:
+    """Create a STAC Collection for Gridded Population of
+    the World, Version 4 (GPWv4): Ancillary datasets
+
+    Args:
+        output (str): Location to save the output STAC Collection json
+
+    Returns:
+        pystac.Collection: pystac collection object
+    """
+    utc = pytz.utc
+
+    start_datetime = utc.localize(datetime.strptime(GPW_ANC_START_YEAR, "%Y"))
+    end_datetime = utc.localize(datetime.strptime(GPW_ANC_END_YEAR, "%Y"))
+
+    collection = pystac.Collection(
+        id=GPW_ANC_ID,
+        title=GPW_ANC_TITLE,
+        description=GPW_ANC_DESCRIPTION,
+        providers=[GPW_PROVIDER],
+        license=GPW_LICENSE,
+        extent=pystac.Extent(
+            pystac.SpatialExtent(GPW_BOUNDING_BOX),
+            # `or None` fixes mypy issue with the DateTime being non-Optional
+            pystac.TemporalExtent([[start_datetime or None, end_datetime]]),
+        ),
+        catalog_type=pystac.CatalogType.RELATIVE_PUBLISHED,
+    )
+    collection.add_link(GPW_LICENSE_LINK)
+    item_assets = ItemAssetsExtension.ext(collection, add_if_missing=True)
+    item_assets.item_assets = ANC_ITEM_ASSETS
 
     ScientificExtension.ext(collection, add_if_missing=True)
 
