@@ -4,13 +4,17 @@ import re
 from datetime import datetime
 from typing import Optional
 
+import fsspec
 import pystac
 import pytz
 import rasterio
 import shapely
 from dateutil.relativedelta import relativedelta
+from pystac.extensions.file import FileExtension
 from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import ProjectionExtension
+from pystac.extensions.raster import RasterBand, RasterExtension
+from pystac.extensions.scientific import ScientificExtension
 from stactools.core.io import ReadHrefModifier
 
 from stactools.gpw.assets import (
@@ -36,7 +40,7 @@ from stactools.gpw.constants import (
 logger = logging.getLogger(__name__)
 
 
-def create_item(
+def create_pop_item(
     pop_count: str,
     pop_count_adj: str,
     pop_density: str,
@@ -44,7 +48,7 @@ def create_item(
     cog_href_modifier: Optional[ReadHrefModifier] = None,
 ) -> pystac.Item:
     """Creates a STAC item for Gridded Population of the World,
-    Version 4 (GPWv4): Population Count dataset.
+    Version 4 (GPWv4): Population datasets.
 
     Args:
         pop_count (str): Path to tiled population count COG
@@ -98,7 +102,10 @@ def create_item(
     item_projection.epsg = GPW_EPSG
     item_projection.bbox = GPW_BOUNDING_BOX
 
-    src = rasterio.open(pop_count)
+    signed_cog_href = cog_href_modifier(
+        pop_count) if cog_href_modifier else pop_count
+
+    src = rasterio.open(signed_cog_href)
 
     item_projection.transform = list(src.transform)
     item_projection.shape = [src.height, src.width]
@@ -109,12 +116,27 @@ def create_item(
         (POP_DENSITY_KEY, pop_density),
         (POP_DENSITY_ADJ_KEY, pop_density_adj),
     ]:
-        item.add_asset(key, ITEM_ASSETS[key].create_asset(href))
+        cog_asset = ITEM_ASSETS[key].create_asset(href)
+        item.add_asset(key, cog_asset)
+
+        asset_file = FileExtension.ext(cog_asset, add_if_missing=True)
+        with fsspec.open(signed_cog_href) as file:
+            size = file.size
+            if size is not None:
+                asset_file.size = size
+
+        asset_raster = RasterExtension.ext(cog_asset, add_if_missing=True)
+        asset_raster.bands = [
+            RasterBand.create(
+                data_type=src.dtypes[0],
+                sampling=src.tags().get("AREA_OR_POINT").lower(),
+            )
+        ]
 
     return item
 
 
-def create_collection(output_url: str) -> pystac.Collection:
+def create_pop_collection(output_url: str) -> pystac.Collection:
     """Create a STAC Collection for Gridded Population of
     #the World, Version 4 (GPWv4): Population Count dataset
 
@@ -145,6 +167,8 @@ def create_collection(output_url: str) -> pystac.Collection:
     collection.add_link(LICENSE_LINK)
     item_assets = ItemAssetsExtension.ext(collection, add_if_missing=True)
     item_assets.item_assets = ITEM_ASSETS
+
+    ScientificExtension.ext(collection, add_if_missing=True)
 
     collection.set_self_href(output_url)
     collection.save_object()

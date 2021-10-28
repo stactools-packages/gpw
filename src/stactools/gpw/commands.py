@@ -19,8 +19,8 @@ def create_gpw_command(cli: click.Group) -> click.Command:
         pass
 
     @gpw.command(
-        "create-collection",
-        short_help="Creates a STAC collection from GPW metadata",
+        "create-pop-collection",
+        short_help="Creates a STAC collection from GPW population metadata",
     )
     @click.option(
         "-d",
@@ -28,7 +28,7 @@ def create_gpw_command(cli: click.Group) -> click.Command:
         required=True,
         help="The output directory for the STAC Collection json",
     )
-    def create_collection_command(destination: str) -> None:
+    def create_pop_collection_command(destination: str) -> None:
         """Creates a STAC Collection from gpw metadata
 
         Args:
@@ -36,7 +36,7 @@ def create_gpw_command(cli: click.Group) -> click.Command:
         Returns:
             Callable
         """
-        stac.create_collection(destination)
+        stac.create_pop_collection(destination)
 
     @gpw.command(
         "create-cog",
@@ -72,8 +72,8 @@ def create_gpw_command(cli: click.Group) -> click.Command:
         cog.create_cog(source, destination, tile=tile)
 
     @gpw.command(
-        "create-item",
-        short_help="Create a STAC item",
+        "create-pop-item",
+        short_help="Create a STAC item for population datasets",
     )
     @click.option(
         "-d",
@@ -95,19 +95,19 @@ def create_gpw_command(cli: click.Group) -> click.Command:
             UN WPP-Adjusted Population Density
         """,
     )
-    def create_item_command(destination: str, cogs: Tuple[str]) -> None:
-        """Generate a STAC item using the metadata, with an asset url as provided.
+    def create_pop_item_command(destination: str, cogs: Tuple[str]) -> None:
+        """Generate a population STAC item using the metadata.
 
         Args:
             destination (str): Local directory to save the STAC Item json
-            cog (str): location of a COG asset for the item
+            cog (str): location of COG assets for the item
         """
 
         (pop_count, pop_count_adj, pop_density,
          pop_density_adj) = (i for i in cogs)
 
-        item = stac.create_item(pop_count, pop_count_adj, pop_density,
-                                pop_density_adj)
+        item = stac.create_pop_item(pop_count, pop_count_adj, pop_density,
+                                    pop_density_adj)
 
         output_path = os.path.join(destination, item.id + ".json")
 

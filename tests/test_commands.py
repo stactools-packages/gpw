@@ -15,11 +15,11 @@ class CreateCollectionTest(CliTestCase):
     def create_subcommand_functions(self):
         return [create_gpw_command]
 
-    def test_create_collection(self):
+    def test_create_pop_collection(self):
         with TemporaryDirectory() as tmp_dir:
             json_path = os.path.join(tmp_dir, "test.json")
             result = self.run_command(
-                ["gpw", "create-collection", "-d", json_path])
+                ["gpw", "create-pop-collection", "-d", json_path])
             self.assertEqual(result.exit_code,
                              0,
                              msg="\n{}".format(result.output))
@@ -50,7 +50,7 @@ class CreateCollectionTest(CliTestCase):
 
             self.assertEqual(len(cogs), 1)
 
-    def test_create_item(self):
+    def test_create_pop_item(self):
         with TemporaryDirectory() as tmp_dir:
 
             test_path = test_data.get_path("data-files/tiles")
@@ -60,7 +60,7 @@ class CreateCollectionTest(CliTestCase):
             ]
 
             result = self.run_command(
-                ["gpw", "create-item", "-d", tmp_dir, "-c"] + paths)
+                ["gpw", "create-pop-item", "-d", tmp_dir, "-c"] + paths)
             self.assertEqual(result.exit_code,
                              0,
                              msg="\n{}".format(result.output))

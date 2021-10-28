@@ -99,8 +99,6 @@ def create_single_cog(
                 "PREDICTOR=YES",
                 "-co",
                 "OVERVIEWS=IGNORE_EXISTING",
-                "-a_nodata",
-                "0",
                 input_path,
                 output_path,
             ]

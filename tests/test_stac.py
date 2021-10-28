@@ -40,7 +40,7 @@ class StacTest(unittest.TestCase):
 
             self.assertEqual(len(cogs), 1)
 
-    def test_create_item(self):
+    def test_create_pop_item(self):
         with TemporaryDirectory() as tmp_dir:
 
             test_path = test_data.get_path("data-files/tiles")
@@ -49,8 +49,7 @@ class StacTest(unittest.TestCase):
                 if d.lower().endswith(".tif")
             ]
 
-            item = stac.create_item(*paths)
-
+            item = stac.create_pop_item(*paths)
             json_path = os.path.join(tmp_dir, f"{item.id}.json")
             item.set_self_href(json_path)
             item.make_asset_hrefs_relative()
@@ -66,13 +65,13 @@ class StacTest(unittest.TestCase):
 
             item.validate()
 
-    def test_create_collection(self):
+    def test_create_pop_collection(self):
         with TemporaryDirectory() as tmp_dir:
 
             # Create stac collection
             json_path = os.path.join(tmp_dir, "collection.json")
 
-            stac.create_collection(json_path)
+            stac.create_pop_collection(json_path)
 
             jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
             self.assertEqual(len(jsons), 1)

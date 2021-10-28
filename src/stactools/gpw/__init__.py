@@ -2,9 +2,9 @@ import stactools.core
 from stactools.cli import Registry
 
 from stactools.gpw import commands
-from stactools.gpw.stac import create_collection, create_item
+from stactools.gpw.stac import create_pop_collection, create_pop_item
 
-__all__ = ['create_collection', 'create_item']
+__all__ = ["create_pop_collection", "create_pop_item"]
 
 stactools.core.use_fsspec()
 

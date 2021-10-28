@@ -19,6 +19,10 @@ ITEM_ASSETS: Dict[str, AssetDefinition] = {
         "type":
         pystac.MediaType.COG,
         "roles": ["data"],
+        "sci:doi":
+        "10.7927/H4JW8BX5",
+        "sci:citation":
+        "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Population Count, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H4JW8BX5. Accessed 22 October 2021.",  # noqa: E501
     }),
     POP_COUNT_ADJ_KEY:
     AssetDefinition({
@@ -30,6 +34,10 @@ ITEM_ASSETS: Dict[str, AssetDefinition] = {
         "type":
         pystac.MediaType.COG,
         "roles": ["data"],
+        "sci:doi":
+        "10.7927/H4PN93PB",
+        "sci:citation":
+        "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Population Count Adjusted to Match 2015 Revision of UN WPP Country Totals, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H4PN93PB. Accessed 22 October 2021.",  # noqa: E501
     }),
     POP_DENSITY_KEY:
     AssetDefinition({
@@ -41,6 +49,10 @@ ITEM_ASSETS: Dict[str, AssetDefinition] = {
         "type":
         pystac.MediaType.COG,
         "roles": ["data"],
+        "sci:doi":
+        "10.7927/H49C6VHW",
+        "sci:citation":
+        "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Population Density, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H49C6VHW. Accessed 22 October 2021.",  # noqa: E501
     }),
     POP_DENSITY_ADJ_KEY:
     AssetDefinition({
@@ -52,5 +64,9 @@ ITEM_ASSETS: Dict[str, AssetDefinition] = {
         "type":
         pystac.MediaType.COG,
         "roles": ["data"],
+        "sci:doi":
+        "10.7927/H4F47M65",
+        "sci:citation":
+        "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Population Density Adjusted to Match 2015 Revision UN WPP Country Totals, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H4F47M65. Accessed 22 October 2021.",  # noqa: E501
     }),
 }
