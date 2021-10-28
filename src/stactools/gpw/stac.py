@@ -25,16 +25,16 @@ from stactools.gpw.assets import (
     POP_DENSITY_KEY,
 )
 from stactools.gpw.constants import (
-    DESCRIPTION,
     GPW_BOUNDING_BOX,
-    GPW_END_YEAR,
     GPW_EPSG,
-    GPW_ID,
+    GPW_LICENSE,
+    GPW_LICENSE_LINK,
+    GPW_POP_DESCRIPTION,
+    GPW_POP_END_YEAR,
+    GPW_POP_ID,
+    GPW_POP_START_YEAR,
+    GPW_POP_TITLE,
     GPW_PROVIDER,
-    GPW_START_YEAR,
-    GPW_TITLE,
-    LICENSE,
-    LICENSE_LINK,
 )
 
 logger = logging.getLogger(__name__)
@@ -83,7 +83,7 @@ def create_pop_item(
     geometry = {"type": "Polygon", "coordinates": [coordinates]}
 
     properties = {
-        "description": DESCRIPTION,
+        "description": GPW_POP_DESCRIPTION,
     }
 
     # Create item
@@ -148,15 +148,15 @@ def create_pop_collection(output_url: str) -> pystac.Collection:
     """
     utc = pytz.utc
 
-    start_datetime = utc.localize(datetime.strptime(GPW_START_YEAR, "%Y"))
-    end_datetime = utc.localize(datetime.strptime(GPW_END_YEAR, "%Y"))
+    start_datetime = utc.localize(datetime.strptime(GPW_POP_START_YEAR, "%Y"))
+    end_datetime = utc.localize(datetime.strptime(GPW_POP_END_YEAR, "%Y"))
 
     collection = pystac.Collection(
-        id=GPW_ID,
-        title=GPW_TITLE,
-        description=DESCRIPTION,
+        id=GPW_POP_ID,
+        title=GPW_POP_TITLE,
+        description=GPW_POP_DESCRIPTION,
         providers=[GPW_PROVIDER],
-        license=LICENSE,
+        license=GPW_LICENSE,
         extent=pystac.Extent(
             pystac.SpatialExtent(GPW_BOUNDING_BOX),
             # `or None` fixes mypy issue with the DateTime being non-Optional
@@ -164,7 +164,7 @@ def create_pop_collection(output_url: str) -> pystac.Collection:
         ),
         catalog_type=pystac.CatalogType.RELATIVE_PUBLISHED,
     )
-    collection.add_link(LICENSE_LINK)
+    collection.add_link(GPW_LICENSE_LINK)
     item_assets = ItemAssetsExtension.ext(collection, add_if_missing=True)
     item_assets.item_assets = ITEM_ASSETS
 

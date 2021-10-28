@@ -6,7 +6,7 @@ from tempfile import TemporaryDirectory
 
 import rasterio
 
-from stactools.gpw.constants import TILING_PIXEL_SIZE
+from stactools.gpw.constants import GPW_TILING_PIXEL_SIZE
 
 logger = logging.getLogger(__name__)
 
@@ -151,8 +151,8 @@ def create_retiled_cogs(
                 cmd = [
                     "gdal_retile.py",
                     "-ps",
-                    str(TILING_PIXEL_SIZE[0]),
-                    str(TILING_PIXEL_SIZE[1]),
+                    str(GPW_TILING_PIXEL_SIZE[0]),
+                    str(GPW_TILING_PIXEL_SIZE[1]),
                     "-targetDir",
                     tmp_dir,
                     input_path,
