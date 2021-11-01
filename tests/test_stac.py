@@ -3,6 +3,7 @@ import unittest
 from tempfile import TemporaryDirectory
 
 import pystac
+import rasterio
 
 from stactools.gpw import cog, stac
 from tests import test_data
@@ -39,6 +40,28 @@ class StacTest(unittest.TestCase):
             cogs = [p for p in os.listdir(tmp_dir) if p.endswith("_cog.tif")]
 
             self.assertEqual(len(cogs), 1)
+
+    def test_create_tiled_cog_expand_bbox(self):
+        with TemporaryDirectory() as tmp_dir:
+            test_path = test_data.get_path(
+                "data-files/tiles/ancillary/gpw_v4_data_quality_indicators_rev11_context_30_sec_2_1_cog.tif"  # noqa: E501
+            )
+
+            expanded_bbox = [-180, -77, -95, 7]
+
+            output_path = cog.expand_bbox(test_path,
+                                          tmp_dir,
+                                          expanded_bbox=expanded_bbox)
+            cogs = [
+                p for p in os.listdir(tmp_dir) if p.endswith("expanded.tif")
+            ]
+            self.assertEqual(len(cogs), 1)
+
+            with rasterio.open(os.path.join(tmp_dir, output_path)) as src:
+                self.assertEqual(int(src.bounds.left), int(expanded_bbox[0]))
+                self.assertEqual(int(src.bounds.bottom), int(expanded_bbox[1]))
+                self.assertEqual(int(src.bounds.right), int(expanded_bbox[2]))
+                self.assertEqual(int(src.bounds.top), int(expanded_bbox[3]))
 
     def test_create_pop_item(self):
         with TemporaryDirectory() as tmp_dir:
