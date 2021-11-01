@@ -75,13 +75,13 @@ def create_gpw_command(cli: click.Group) -> click.Command:
         "-d",
         "--destination",
         required=True,
-        help="The output directory for the STAC Collection json",
+        help="The output path for the STAC Collection json",
     )
     def create_pop_collection_command(destination: str) -> None:
         """Creates a STAC Collection from GPW population metadata
 
         Args:
-            destination (str): Directory used to store the collection json
+            destination (str): Path used to store the collection json
         Returns:
             Callable
         """
@@ -95,13 +95,13 @@ def create_gpw_command(cli: click.Group) -> click.Command:
         "-d",
         "--destination",
         required=True,
-        help="The output directory for the STAC Collection json",
+        help="The output path for the STAC Collection json",
     )
     def create_anc_collection_command(destination: str) -> None:
         """Creates a STAC Collection from GPW ancillary metadata
 
         Args:
-            destination (str): Directory used to store the collection json
+            destination (str): Path used to store the collection json
         Returns:
             Callable
         """
