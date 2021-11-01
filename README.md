@@ -79,7 +79,7 @@ cog_list = [
 ]
 stac.create_pop_item(*cog_list)
 
-# Create a population STAC Item
+# Create an ancillary STAC Item
 cog_list = [
     Path to Data Quality Indicators - Data Context COG
     Path to Data Quality Indicators - Mean Administrative Unit Area COG
