@@ -11,7 +11,7 @@ from tests import test_data
 class StacTest(unittest.TestCase):
     def test_create_cog(self):
         with TemporaryDirectory() as tmp_dir:
-            test_path = test_data.get_path("data-files/raw")
+            test_path = test_data.get_path("data-files/raw/population")
             paths = [
                 os.path.join(test_path, d) for d in os.listdir(test_path)
                 if d.lower().endswith(".tif")
@@ -26,7 +26,7 @@ class StacTest(unittest.TestCase):
 
     def test_create_tiled_cog(self):
         with TemporaryDirectory() as tmp_dir:
-            test_path = test_data.get_path("data-files/raw")
+            test_path = test_data.get_path("data-files/raw/population")
             paths = [
                 os.path.join(test_path, d) for d in os.listdir(test_path)
                 if d.lower().endswith(".tif")
@@ -43,13 +43,85 @@ class StacTest(unittest.TestCase):
     def test_create_pop_item(self):
         with TemporaryDirectory() as tmp_dir:
 
-            test_path = test_data.get_path("data-files/tiles")
+            test_path = test_data.get_path("data-files/tiles/population")
             paths = [
                 os.path.join(test_path, d) for d in os.listdir(test_path)
                 if d.lower().endswith(".tif")
             ]
 
             item = stac.create_pop_item(*paths)
+            json_path = os.path.join(tmp_dir, f"{item.id}.json")
+            item.set_self_href(json_path)
+            item.make_asset_hrefs_relative()
+            item.save_object()
+
+            jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
+
+            self.assertEqual(len(jsons), 1)
+
+            item_path = os.path.join(tmp_dir, jsons[0])
+
+            item = pystac.read_file(item_path)
+
+            item.validate()
+
+    def test_create_anc_item(self):
+        with TemporaryDirectory() as tmp_dir:
+
+            test_path = test_data.get_path("data-files/tiles/ancillary")
+
+            paths = [
+                os.path.join(
+                    test_path,
+                    "gpw_v4_data_quality_indicators_rev11_context_30_sec_2_1_cog.tif",
+                ),
+                os.path.join(
+                    test_path,
+                    "gpw_v4_data_quality_indicators_rev11_mean_adminunitarea_30_sec_2_1_cog.tif",
+                ),
+                os.path.join(
+                    test_path,
+                    "gpw_v4_data_quality_indicators_rev11_watermask_30_sec_2_1_cog.tif",
+                ),
+                os.path.join(
+                    test_path,
+                    "gpw_v4_basic_demographic_characteristics_rev11_atotpopbt_2010_cntm_30_sec_2_1_cog.tif",  # noqa:E501
+                ),
+                os.path.join(
+                    test_path,
+                    "gpw_v4_basic_demographic_characteristics_rev11_atotpopbt_2010_dens_30_sec_2_1_cog.tif",  # noqa:E501
+                ),
+                os.path.join(
+                    test_path,
+                    "gpw_v4_basic_demographic_characteristics_rev11_atotpopft_2010_cntm_30_sec_2_1_cog.tif",  # noqa:E501
+                ),
+                os.path.join(
+                    test_path,
+                    "gpw_v4_basic_demographic_characteristics_rev11_atotpopft_2010_dens_30_sec_2_1_cog.tif",  # noqa:E501
+                ),
+                os.path.join(
+                    test_path,
+                    "gpw_v4_basic_demographic_characteristics_rev11_atotpopmt_2010_cntm_30_sec_2_1_cog.tif",  # noqa:E501
+                ),
+                os.path.join(
+                    test_path,
+                    "gpw_v4_basic_demographic_characteristics_rev11_atotpopmt_2010_dens_30_sec_2_1_cog.tif",  # noqa:E501
+                ),
+                os.path.join(
+                    test_path,
+                    "gpw_v4_land_water_area_rev11_landareakm_30_sec_2_1_cog.tif",
+                ),
+                os.path.join(
+                    test_path,
+                    "gpw_v4_land_water_area_rev11_waterareakm_30_sec_expanded_2_1_cog.tif",
+                ),
+                os.path.join(
+                    test_path,
+                    "gpw_v4_national_identifier_grid_rev11_30_sec_2_1_cog.tif",
+                ),
+            ]
+
+            item = stac.create_anc_item(*paths)
             json_path = os.path.join(tmp_dir, f"{item.id}.json")
             item.set_self_href(json_path)
             item.make_asset_hrefs_relative()

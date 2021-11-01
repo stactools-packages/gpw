@@ -1,0 +1,235 @@
+{
+  "type": "Feature",
+  "stac_version": "1.0.0",
+  "id": "gpw_v4_rev11_30_sec_2_1",
+  "properties": {
+    "description": "The Gridded Population of the World, Version 4 (GPWv4) Revision 11 Ancillary Datasets (data quality indicators, basic demographic characteristics, land and water area, and national identifier grid) provide context for the population count and density rasters found within the Gridded Population of the World Population Collection.",
+    "proj:epsg": 4326,
+    "proj:bbox": [-180.0, 90.0, 180.0, -90.0],
+    "proj:transform": [
+      0.00833333333333333, 0.0, -180.0, 0.0, -0.00833333333333333,
+      6.658333333333374, 0.0, 0.0, 1.0
+    ],
+    "proj:shape": [10001, 10001],
+    "datetime": "2010-07-01T00:00:00Z"
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [180.0, 90.0],
+        [180.0, -90.0],
+        [-180.0, -90.0],
+        [-180.0, 90.0],
+        [180.0, 90.0]
+      ]
+    ]
+  },
+  "links": [
+    {
+      "rel": "self",
+      "href": "path/to/stactools-packages/gpw/examples/ancillary/gpw_v4_rev11_30_sec_2_1.json",
+      "type": "application/json"
+    }
+  ],
+  "assets": {
+    "anc_dqi_context": {
+      "href": "../../tests/data-files/tiles/ancillary/gpw_v4_data_quality_indicators_rev11_context_30_sec_2_1_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Data Quality Indicators - Data Context",
+      "description": "Gridded Population of the World, Version 4 (GPWv4): Data Quality Indicators - Data Context, 30 arc-seconds, 1km resolution",
+      "sci:doi": "10.7927/H42Z13KG",
+      "sci:citation": "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Data Quality Indicators, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H42Z13KG. Accessed 22 Octover 2021.",
+      "file:size": 829474,
+      "raster:bands": [
+        {
+          "sampling": "area",
+          "data_type": "int16"
+        }
+      ],
+      "roles": ["data"]
+    },
+    "anc_dqi_admin": {
+      "href": "../../tests/data-files/tiles/ancillary/gpw_v4_data_quality_indicators_rev11_mean_adminunitarea_30_sec_2_1_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Data Quality Indicators - Mean Administrative Unit Area",
+      "description": "Gridded Population of the World, Version 4 (GPWv4): Data Quality Indicators - Mean Administrative Unit Area, 30 arc-seconds, 1km resolution",
+      "sci:doi": "10.7927/H42Z13KG",
+      "sci:citation": "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Data Quality Indicators, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H42Z13KG. Accessed 22 October 2021.",
+      "file:size": 2947913,
+      "raster:bands": [
+        {
+          "sampling": "area",
+          "data_type": "float32"
+        }
+      ],
+      "roles": ["data"]
+    },
+    "anc_dqi_watermask": {
+      "href": "../../tests/data-files/tiles/ancillary/gpw_v4_data_quality_indicators_rev11_watermask_30_sec_2_1_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Data Quality Indicators - Water Mask",
+      "description": "Gridded Population of the World, Version 4 (GPWv4): Data Quality Indicators - Water Mask, 30 arc-seconds, 1km resolution",
+      "sci:doi": "10.7927/H42Z13KG",
+      "sci:citation": "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Data Quality Indicators, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H42Z13KG. Accessed 22 October 2021.",
+      "file:size": 819980,
+      "raster:bands": [
+        {
+          "sampling": "area",
+          "data_type": "int16"
+        }
+      ],
+      "roles": ["data"]
+    },
+    "bt_count": {
+      "href": "../../tests/data-files/tiles/ancillary/gpw_v4_basic_demographic_characteristics_rev11_atotpopbt_2010_cntm_30_sec_2_1_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Basic Demographic Characteristics - Total Population Count",
+      "description": "Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics - Total Population Count, 30 arc-seconds, 1km resolution",
+      "sci:doi": "10.7927/H46M34XX",
+      "sci:citation": "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H46M34XX. Accessed 22 October 2021.",
+      "file:size": 3078792,
+      "raster:bands": [
+        {
+          "sampling": "area",
+          "data_type": "float32"
+        }
+      ],
+      "roles": ["data"]
+    },
+    "bt_density": {
+      "href": "../../tests/data-files/tiles/ancillary/gpw_v4_basic_demographic_characteristics_rev11_atotpopbt_2010_dens_30_sec_2_1_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Basic Demographic Characteristics - Total Population Density",
+      "description": "Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics - Total Population Density, 30 arc-seconds, 1km resolution",
+      "sci:doi": "10.7927/H46M34XX",
+      "sci:citation": "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H46M34XX. Accessed 22 October 2021.",
+      "file:size": 2968195,
+      "raster:bands": [
+        {
+          "sampling": "area",
+          "data_type": "float32"
+        }
+      ],
+      "roles": ["data"]
+    },
+    "ft_count": {
+      "href": "../../tests/data-files/tiles/ancillary/gpw_v4_basic_demographic_characteristics_rev11_atotpopft_2010_cntm_30_sec_2_1_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Basic Demographic Characteristics - Female Count",
+      "description": "Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics - Female Count, 30 arc-seconds, 1km resolution",
+      "sci:doi": "10.7927/H46M34XX",
+      "sci:citation": "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H46M34XX. Accessed 22 October 2021.",
+      "file:size": 3078444,
+      "raster:bands": [
+        {
+          "sampling": "area",
+          "data_type": "float32"
+        }
+      ],
+      "roles": ["data"]
+    },
+    "ft_density": {
+      "href": "../../tests/data-files/tiles/ancillary/gpw_v4_basic_demographic_characteristics_rev11_atotpopft_2010_dens_30_sec_2_1_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Basic Demographic Characteristics - Female Density",
+      "description": "Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics - Female Density, 30 arc-seconds, 1km resolution",
+      "sci:doi": "10.7927/H46M34XX",
+      "sci:citation": "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H46M34XX. Accessed 22 October 2021.",
+      "file:size": 2968878,
+      "raster:bands": [
+        {
+          "sampling": "area",
+          "data_type": "float32"
+        }
+      ],
+      "roles": ["data"]
+    },
+    "mt_count": {
+      "href": "../../tests/data-files/tiles/ancillary/gpw_v4_basic_demographic_characteristics_rev11_atotpopmt_2010_cntm_30_sec_2_1_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Basic Demographic Characteristics - Male Count",
+      "description": "Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics - Male Count, 30 arc-seconds, 1km resolution",
+      "sci:doi": "10.7927/H46M34XX",
+      "sci:citation": "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H46M34XX. Accessed 22 October 2021.",
+      "file:size": 3078301,
+      "raster:bands": [
+        {
+          "sampling": "area",
+          "data_type": "float32"
+        }
+      ],
+      "roles": ["data"]
+    },
+    "mt_density": {
+      "href": "../../tests/data-files/tiles/ancillary/gpw_v4_basic_demographic_characteristics_rev11_atotpopmt_2010_dens_30_sec_2_1_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Basic Demographic Characteristics - Male Density",
+      "description": "Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics - Male Density, 30 arc-seconds, 1km resolution",
+      "sci:doi": "10.7927/H46M34XX",
+      "sci:citation": "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H46M34XX. Accessed 22 October 2021.",
+      "file:size": 2968465,
+      "raster:bands": [
+        {
+          "sampling": "area",
+          "data_type": "float32"
+        }
+      ],
+      "roles": ["data"]
+    },
+    "anc_land_area": {
+      "href": "../../tests/data-files/tiles/ancillary/gpw_v4_land_water_area_rev11_landareakm_30_sec_2_1_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Land Area",
+      "description": "Gridded Population of the World, Version 4 (GPWv4): Land Area, 30 arc-seconds, 1km resolution",
+      "sci:doi": "10.7927/H4Z60M4Z",
+      "sci:citation": "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Land and Water Area, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H4Z60M4Z. Accessed 22 October 2021.",
+      "file:size": 3085350,
+      "raster:bands": [
+        {
+          "sampling": "area",
+          "data_type": "float32"
+        }
+      ],
+      "roles": ["data"]
+    },
+    "anc_water_area": {
+      "href": "../../tests/data-files/tiles/ancillary/gpw_v4_land_water_area_rev11_waterareakm_30_sec_expanded_2_1_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Water Area",
+      "description": "Gridded Population of the World, Version 4 (GPWv4): Water Area, 30 arc-seconds, 1km resolution",
+      "sci:doi": "10.7927/H4Z60M4Z",
+      "sci:citation": "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Land and Water Area, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H4Z60M4Z. Accessed 22 October 2021.",
+      "file:size": 3070510,
+      "raster:bands": [
+        {
+          "sampling": "area",
+          "data_type": "float32"
+        }
+      ],
+      "roles": ["data"]
+    },
+    "anc_nat_id_grid": {
+      "href": "../../tests/data-files/tiles/ancillary/gpw_v4_national_identifier_grid_rev11_30_sec_2_1_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "National Identifier Grid",
+      "description": "Gridded Population of the World, Version 4 (GPWv4): UN WPP-Adjusted Population Density, 30 arc-seconds, 1km resolution",
+      "sci:doi": "10.7927/H4TD9VDP",
+      "sci:citation": "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): National Identifier Grid, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H4TD9VDP. Accessed 22 October 2021.",
+      "file:size": 833761,
+      "raster:bands": [
+        {
+          "sampling": "area",
+          "data_type": "int16"
+        }
+      ],
+      "roles": ["data"]
+    }
+  },
+  "bbox": [-180.0, 90.0, 180.0, -90.0],
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v1.0.0/schema.json",
+    "https://stac-extensions.github.io/file/v2.0.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.0.0/schema.json"
+  ]
+}

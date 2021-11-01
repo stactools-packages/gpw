@@ -3,6 +3,7 @@ import os
 from glob import glob
 from subprocess import CalledProcessError, check_output
 from tempfile import TemporaryDirectory
+from typing import List, Union
 
 import rasterio
 
@@ -17,6 +18,7 @@ def create_cog(
     raise_on_fail: bool = True,
     dry_run: bool = False,
     tile: bool = False,
+    expanded_bbox: List[Union[float, int, str]] = [],
 ) -> str:
     """Create COG from a tif
 
@@ -28,6 +30,8 @@ def create_cog(
         dry_run (bool, optional): Run without downloading tif, creating COG,
             and writing COG. Defaults to False.
         tile (bool, optional): Tile the tiff into many smaller files
+        expanded_bbox (list, optional): Expand input bounding box before processing. Bounding
+            box should be in the order: [xmin, ymin, xmax, ymax]
 
     Returns:
         str: The path to the output COG(s)
@@ -40,7 +44,8 @@ def create_cog(
         else:
             if tile:
                 return create_retiled_cogs(input_path, output_dir,
-                                           raise_on_fail, dry_run)
+                                           raise_on_fail, dry_run,
+                                           expanded_bbox)
             else:
                 output_path = os.path.join(
                     output_dir,
@@ -125,6 +130,7 @@ def create_retiled_cogs(
     output_directory: str,
     raise_on_fail: bool = True,
     dry_run: bool = False,
+    expanded_bbox: List[Union[float, int, str]] = [],
 ) -> str:
     """Split tiff into tiles and create COGs
     Args:
@@ -134,6 +140,8 @@ def create_retiled_cogs(
             Defaults to True.
         dry_run (bool, optional): Run without downloading tif, creating COG,
             and writing COG. Defaults to False.
+        expanded_bbox (list, optional): Expand input bounding box before processing. Bounding
+            box should be in the order: [xmin, ymin, xmax, ymax]
     Returns:
         str: The path to the output COGs.
     """
@@ -148,6 +156,10 @@ def create_retiled_cogs(
             logger.debug(f"input_path: {input_path}")
             logger.debug(f"output_directory: {output_directory}")
             with TemporaryDirectory() as tmp_dir:
+                if expanded_bbox:
+                    input_path = expand_bbox(input_path, tmp_dir,
+                                             expanded_bbox)
+
                 cmd = [
                     "gdal_retile.py",
                     "-ps",
@@ -165,7 +177,10 @@ def create_retiled_cogs(
                 finally:
                     logger.info(f"output: {str(output)}")
                 file_names = glob(f"{tmp_dir}/*.tif")
-                for f in file_names:
+                for f in [
+                        i for i in file_names
+                        if not i.endswith("_expanded.tif")
+                ]:
                     input_file = os.path.join(tmp_dir, f)
                     output_file = os.path.join(
                         output_directory,
@@ -188,3 +203,41 @@ def create_retiled_cogs(
             raise
 
     return output_directory
+
+
+def expand_bbox(
+    input_path: str,
+    tmp_dir: str,
+    expanded_bbox: List[Union[float, int, str]] = [],
+) -> str:
+    output_path = os.path.join(
+        tmp_dir,
+        f'{os.path.basename(input_path).replace(".tif", "_expanded.tif")}')
+    cmd = [
+        "gdalwarp",
+        "-overwrite",
+        "-co",
+        "NUM_THREADS=ALL_CPUS",
+        "-co",
+        "COMPRESS=DEFLATE",
+        "-te",
+        str(expanded_bbox[0]),
+        str(expanded_bbox[1]),
+        str(expanded_bbox[2]),
+        str(expanded_bbox[3]),
+        "-ts",
+        "43200",
+        "21600",
+        input_path,
+        output_path,
+    ]
+
+    try:
+        output = check_output(cmd)
+    except CalledProcessError as e:
+        output = e.output
+        raise
+    finally:
+        logger.info(f"output: {str(output)}")
+
+    return output_path

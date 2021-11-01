@@ -49,7 +49,7 @@ class CreateCollectionTest(CliTestCase):
 
     def test_create_cog(self):
         with TemporaryDirectory() as tmp_dir:
-            test_path = test_data.get_path("data-files/raw")
+            test_path = test_data.get_path("data-files/raw/population")
             paths = [
                 os.path.join(test_path, d) for d in os.listdir(test_path)
                 if d.lower().endswith(".tif")
@@ -69,7 +69,7 @@ class CreateCollectionTest(CliTestCase):
     def test_create_pop_item(self):
         with TemporaryDirectory() as tmp_dir:
 
-            test_path = test_data.get_path("data-files/tiles")
+            test_path = test_data.get_path("data-files/tiles/population")
             paths = [
                 os.path.join(test_path, d) for d in os.listdir(test_path)
                 if d.lower().endswith(".tif")
@@ -77,6 +77,30 @@ class CreateCollectionTest(CliTestCase):
 
             result = self.run_command(
                 ["gpw", "create-pop-item", "-d", tmp_dir, "-c"] + paths)
+            self.assertEqual(result.exit_code,
+                             0,
+                             msg="\n{}".format(result.output))
+
+            jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
+            self.assertEqual(len(jsons), 1)
+
+            item_path = os.path.join(tmp_dir, jsons[0])
+
+            item = pystac.read_file(item_path)
+
+        item.validate()
+
+    def test_create_anc_item(self):
+        with TemporaryDirectory() as tmp_dir:
+
+            test_path = test_data.get_path("data-files/tiles/ancillary")
+            paths = [
+                os.path.join(test_path, d) for d in os.listdir(test_path)
+                if d.lower().endswith(".tif")
+            ]
+
+            result = self.run_command(
+                ["gpw", "create-anc-item", "-d", tmp_dir, "-c"] + paths)
             self.assertEqual(result.exit_code,
                              0,
                              msg="\n{}".format(result.output))

@@ -10,8 +10,12 @@ POP_DENSITY_ADJ_KEY = "pop_density_adj"
 ANC_DQI_CONTEXT_KEY = "anc_dqi_context"
 ANC_DQI_ADMIN_KEY = "anc_dqi_admin"
 ANC_DQI_WATERMASK_KEY = "anc_dqi_watermask"
-# TODO: add basic demographic characteristics asset(s)
-# ANC_BDC_ = ""
+ANC_BDC_BT_COUNT = "bt_count"
+ANC_BDC_BT_DENSITY = "bt_density"
+ANC_BDC_FT_COUNT = "ft_count"
+ANC_BDC_FT_DENSITY = "ft_density"
+ANC_BDC_MT_COUNT = "mt_count"
+ANC_BDC_MT_DENSITY = "mt_density"
 ANC_LAND_AREA_KEY = "anc_land_area"
 ANC_WATER_AREA_KEY = "anc_water_area"
 ANC_NAT_ID_GRID_KEY = "anc_nat_id_grid"
@@ -124,6 +128,96 @@ ANC_ITEM_ASSETS: Dict[str, AssetDefinition] = {
         "10.7927/H42Z13KG",
         "sci:citation":
         "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Data Quality Indicators, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H42Z13KG. Accessed 22 October 2021.",  # noqa: E501
+    }),
+    ANC_BDC_BT_COUNT:
+    AssetDefinition({
+        "title":
+        "Basic Demographic Characteristics - Total Population Count",
+        "description": (
+            "Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics - Total Population Count, 30 arc-seconds, 1km resolution"  # noqa: E501
+        ),
+        "type":
+        pystac.MediaType.COG,
+        "roles": ["data"],
+        "sci:doi":
+        "10.7927/H46M34XX",
+        "sci:citation":
+        "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H46M34XX. Accessed 22 October 2021.",  # noqa: E501
+    }),
+    ANC_BDC_BT_DENSITY:
+    AssetDefinition({
+        "title":
+        "Basic Demographic Characteristics - Total Population Density",
+        "description": (
+            "Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics - Total Population Density, 30 arc-seconds, 1km resolution"  # noqa: E501
+        ),
+        "type":
+        pystac.MediaType.COG,
+        "roles": ["data"],
+        "sci:doi":
+        "10.7927/H46M34XX",
+        "sci:citation":
+        "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H46M34XX. Accessed 22 October 2021.",  # noqa: E501
+    }),
+    ANC_BDC_FT_COUNT:
+    AssetDefinition({
+        "title":
+        "Basic Demographic Characteristics - Female Count",
+        "description": (
+            "Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics - Female Count, 30 arc-seconds, 1km resolution"  # noqa: E501
+        ),
+        "type":
+        pystac.MediaType.COG,
+        "roles": ["data"],
+        "sci:doi":
+        "10.7927/H46M34XX",
+        "sci:citation":
+        "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H46M34XX. Accessed 22 October 2021.",  # noqa: E501
+    }),
+    ANC_BDC_FT_DENSITY:
+    AssetDefinition({
+        "title":
+        "Basic Demographic Characteristics - Female Density",
+        "description": (
+            "Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics - Female Density, 30 arc-seconds, 1km resolution"  # noqa: E501
+        ),
+        "type":
+        pystac.MediaType.COG,
+        "roles": ["data"],
+        "sci:doi":
+        "10.7927/H46M34XX",
+        "sci:citation":
+        "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H46M34XX. Accessed 22 October 2021.",  # noqa: E501
+    }),
+    ANC_BDC_MT_COUNT:
+    AssetDefinition({
+        "title":
+        "Basic Demographic Characteristics - Male Count",
+        "description": (
+            "Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics - Male Count, 30 arc-seconds, 1km resolution"  # noqa: E501
+        ),
+        "type":
+        pystac.MediaType.COG,
+        "roles": ["data"],
+        "sci:doi":
+        "10.7927/H46M34XX",
+        "sci:citation":
+        "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H46M34XX. Accessed 22 October 2021.",  # noqa: E501
+    }),
+    ANC_BDC_MT_DENSITY:
+    AssetDefinition({
+        "title":
+        "Basic Demographic Characteristics - Male Density",
+        "description": (
+            "Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics - Male Density, 30 arc-seconds, 1km resolution"  # noqa: E501
+        ),
+        "type":
+        pystac.MediaType.COG,
+        "roles": ["data"],
+        "sci:doi":
+        "10.7927/H46M34XX",
+        "sci:citation":
+        "Center for International Earth Science Information Network - CIESIN - Columbia University. 2018. Gridded Population of the World, Version 4 (GPWv4): Basic Demographic Characteristics, Revision 11. Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). https://doi.org/10.7927/H46M34XX. Accessed 22 October 2021.",  # noqa: E501
     }),
     ANC_LAND_AREA_KEY:
     AssetDefinition({
