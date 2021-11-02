@@ -81,7 +81,7 @@
       ],
       "roles": ["data"]
     },
-    "bt_count": {
+    "anc_bdc_bt_count": {
       "href": "../../tests/data-files/tiles/ancillary/gpw_v4_basic_demographic_characteristics_rev11_atotpopbt_2010_cntm_30_sec_2_1_cog.tif",
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Basic Demographic Characteristics - Total Population Count",
@@ -97,7 +97,7 @@
       ],
       "roles": ["data"]
     },
-    "bt_density": {
+    "anc_bdc_bt_density": {
       "href": "../../tests/data-files/tiles/ancillary/gpw_v4_basic_demographic_characteristics_rev11_atotpopbt_2010_dens_30_sec_2_1_cog.tif",
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Basic Demographic Characteristics - Total Population Density",
@@ -113,7 +113,7 @@
       ],
       "roles": ["data"]
     },
-    "ft_count": {
+    "anc_bdc_ft_count": {
       "href": "../../tests/data-files/tiles/ancillary/gpw_v4_basic_demographic_characteristics_rev11_atotpopft_2010_cntm_30_sec_2_1_cog.tif",
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Basic Demographic Characteristics - Female Count",
@@ -129,7 +129,7 @@
       ],
       "roles": ["data"]
     },
-    "ft_density": {
+    "anc_bdc_ft_density": {
       "href": "../../tests/data-files/tiles/ancillary/gpw_v4_basic_demographic_characteristics_rev11_atotpopft_2010_dens_30_sec_2_1_cog.tif",
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Basic Demographic Characteristics - Female Density",
@@ -145,7 +145,7 @@
       ],
       "roles": ["data"]
     },
-    "mt_count": {
+    "anc_bdc_mt_count": {
       "href": "../../tests/data-files/tiles/ancillary/gpw_v4_basic_demographic_characteristics_rev11_atotpopmt_2010_cntm_30_sec_2_1_cog.tif",
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Basic Demographic Characteristics - Male Count",
@@ -161,7 +161,7 @@
       ],
       "roles": ["data"]
     },
-    "mt_density": {
+    "anc_bdc_mt_density": {
       "href": "../../tests/data-files/tiles/ancillary/gpw_v4_basic_demographic_characteristics_rev11_atotpopmt_2010_dens_30_sec_2_1_cog.tif",
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Basic Demographic Characteristics - Male Density",
