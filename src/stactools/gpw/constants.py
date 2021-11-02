@@ -20,6 +20,7 @@ GPW_PROVIDER = Provider(
 )
 GPW_BOUNDING_BOX = [-180.000000, 90.000000, 180.000000, -90.000000]
 GPW_TILING_PIXEL_SIZE = (10001, 10001)
+GPW_VERSION = "4.11"
 
 GPW_POP_ID = "GPW-population"
 GPW_POP_TITLE = "Gridded Population of the World (GPW) v4.11, Population Datasets"

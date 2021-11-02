@@ -15,6 +15,7 @@ from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import ProjectionExtension
 from pystac.extensions.raster import RasterBand, RasterExtension
 from pystac.extensions.scientific import ScientificExtension
+from pystac.extensions.version import ItemVersionExtension
 from stactools.core.io import ReadHrefModifier
 
 from stactools.gpw.assets import (
@@ -53,6 +54,7 @@ from stactools.gpw.constants import (
     GPW_POP_START_YEAR,
     GPW_POP_TITLE,
     GPW_PROVIDER,
+    GPW_VERSION,
 )
 
 logger = logging.getLogger(__name__)
@@ -127,6 +129,9 @@ def create_pop_item(
 
     item_projection.transform = list(src.transform)
     item_projection.shape = [src.height, src.width]
+
+    item_version = ItemVersionExtension.ext(item, add_if_missing=True)
+    item_version.version = GPW_VERSION
 
     for key, href in [
         (POP_COUNT_KEY, pop_count),
@@ -234,6 +239,9 @@ def create_anc_item(
 
     item_projection.transform = list(src.transform)
     item_projection.shape = [src.height, src.width]
+
+    item_version = ItemVersionExtension.ext(item, add_if_missing=True)
+    item_version.version = GPW_VERSION
 
     for key, href in [
         (ANC_DQI_CONTEXT_KEY, dqi_context),
